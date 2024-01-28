@@ -1,5 +1,5 @@
 <ol>
-  <li *ngFor="let contact of contacts">
+  <li *ngFor="let contact of contacts | async">
     {{ contact | name }}
     <!-- TODO message for mobile, call for all numbers -->
   </li>

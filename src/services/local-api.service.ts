@@ -61,9 +61,10 @@ export class LocalAPIService<T extends Entity> implements CRUD<T, number> {
     const updatedModel = { ...model, updatedAt: new Date() };
 
     // Lodash types import has issues in stackblitz so I resorted to indexOf and splice.
-    const indexOfModel: number = this.collection.indexOf(
-      this.index.get(model.id)
-    );
+    const existingModel = this.index.get(model.id);
+    const indexOfModel = !!existingModel
+      ? this.collection.indexOf(existingModel)
+      : null;
     // Update the model in the collection using index. If no index we just add it to the collection.
     if (indexOfModel) this.collection[indexOfModel] = updatedModel;
     else this.collection.push(updatedModel);
